@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-sm m-auto border-1">
         <h1>Create Project</h1>
-        <form action="{{ route('tasks.store') }}" method="POST">
+        <form action="{{ route('tasks.edit', ['id' => $task->id]) }}" method="POST">
             @csrf
             <input type="hidden" value="{{$task->id}}">
             <div class="mb-3">
