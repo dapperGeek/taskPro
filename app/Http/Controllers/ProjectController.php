@@ -70,11 +70,11 @@ class ProjectController extends Controller
         return view('projects.update')->with('project', $project);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate($this->validationRules);
 
-        $project = Project::find($id);
+        $project = Project::find($request->input("id"));
         $project->update([
             'title' => $request->get("title"),
             'description' => $request->get("description"),

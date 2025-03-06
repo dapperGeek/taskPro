@@ -4,7 +4,7 @@
         <h1>Create Project</h1>
         <form action="{{ route('tasks.edit', ['id' => $task->id]) }}" method="POST">
             @csrf
-            <input type="hidden" value="{{$task->id}}">
+            <input type="hidden" value="{{$task->id}}" name="id">
             <div class="mb-3">
                 <label for="titleInput" class="form-label">Title</label>
                 <input name="title" type="text" class="form-control" id="titleInput" aria-describedby="" value="{{$task->title}}">

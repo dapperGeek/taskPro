@@ -1,10 +1,10 @@
 @extends('layout')
 @section('content')
     <div class="container-sm m-auto border-1">
-        <h1>Create Project</h1>
-        <form action="{{ route('projects.edit', ['id' => $project->id]) }}" method="POST">
+        <h1>Update Project</h1>
+        <form action="{{ route('projects.update') }}" method="POST">
             @csrf
-            <input type="hidden" value="{{$project->id}}">
+            <input type="hidden" value="{{$project->id}}" name="id">
             <div class="mb-3">
                 <label for="titleInput" class="form-label">Title</label>
                 <input name="title" type="text" class="form-control" id="titleInput" aria-describedby="" value="{{$project->title}}">

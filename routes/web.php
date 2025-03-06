@@ -11,7 +11,7 @@ Route::get('/projects/create', [ProjectController::class, 'create']);
 Route::post('/projects/store', [ProjectController::class, 'store'])->name('projects.store');
 Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::put('/projects/update/{id}', [ProjectController::class, 'update'])->name('projects.update');
+Route::post('/projects/update', [ProjectController::class, 'update'])->name('projects.update');
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
 #Tasks
