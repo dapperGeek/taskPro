@@ -37,7 +37,7 @@ class TaskController extends Controller
             ->orderBy('created_at','desc')
             ->paginate($request->get("perPage",15));;
 
-        return view('projects.index', $tasks);
+        return view('tasks.index')->with('tasks', $tasks);
     }
 
     public function create() {

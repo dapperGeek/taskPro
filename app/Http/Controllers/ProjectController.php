@@ -37,7 +37,7 @@ class ProjectController extends Controller
             ->orderBy('created_at','desc')
             ->paginate($request->get("perPage",15));;
 
-        return view('projects.index', $projects);
+        return view('projects.index')->with('projects', $projects);
     }
 
     public function create() {
@@ -67,7 +67,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
-        return view('projects.edit', compact('project'));
+        return view('projects.update', compact('project'));
     }
 
     public function update(Request $request, $id)
@@ -80,12 +80,16 @@ class ProjectController extends Controller
             'description' => $request->get("description"),
             'due_date' => $request->get("due_date"),
         ]);
+
+        redirect()->route('projects.index');
     }
 
     public function destroy($id)
     {
         $proj = Project::find($id);
         $proj->delete();
+
+        redirect()->route('projects.index');
     }
 
     /**
