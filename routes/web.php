@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,9 +16,9 @@ Route::post('/projects/update', [ProjectController::class, 'update'])->name('pro
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
 #Tasks
-Route::get('/tasks', [ProjectController::class, 'index']);
-Route::get('/tasks/create', [ProjectController::class, 'create']);
-Route::post('/tasks/store', [ProjectController::class, 'store'])->name('tasks.store');
-Route::get('/tasks/{id}', [ProjectController::class, 'show'])->name('tasks.show');
-Route::get('/tasks/edit/{id}', [ProjectController::class, 'edit'])->name('tasks.edit');
-Route::delete('/tasks/{id}', [ProjectController::class, 'destroy'])->name('tasks.destroy');
+Route::get('/tasks', [TaskController::class, 'index']);
+Route::get('/tasks/create', [TaskController::class, 'create']);
+Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
+Route::get('/tasks/edit/{id}', [TaskController::class, 'edit'])->name('tasks.edit');
+Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
