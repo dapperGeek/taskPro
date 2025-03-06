@@ -2,13 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
+    private array $validationRules = [
+        'id' => 'sometimes|exists:projects,id',
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'due_date' => 'required|date|after_or_equal:today',
+    ];
+
+    /** Displays all projects
+     * @param Request $request
+     * @return View
+     */
     public function index(Request $request): View
     {
         $query = Task::query();
@@ -26,5 +38,68 @@ class TaskController extends Controller
             ->paginate($request->get("perPage",15));;
 
         return view('projects.index', $tasks);
+    }
+
+    public function create() {
+        return view('projects.create');
+    }
+
+    public function store(Request $request)
+    {
+        // Validate request
+        $request->validate($this->validationRules);
+
+        $task = new Task();
+        $task->create([
+            'title' => $request->get("title"),
+            'description' => $request->get("description"),
+            'due_date' => $request->get("due_date"),
+        ]);
+    }
+
+    public function show($id)
+    {
+        $task = Task::find($id);
+
+        return view('projects.show', compact('task'));
+    }
+
+    public function edit($id)
+    {
+        $task = Task::find($id);
+        return view('projects.edit', compact('task'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate($this->validationRules);
+
+        $task = Task::find($id);
+        $task->update([
+            'title' => $request->get("title"),
+            'description' => $request->get("description"),
+            'due_date' => $request->get("due_date"),
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $proj = Task::find($id);
+        $proj->delete();
+    }
+
+    /**
+     * Validate listing request
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function validateRequest(Request $request, array $validationRules): jsonResponse
+    {
+        $validatedData = Validator::make($request->all(), $validationRules);
+
+        if ($validatedData->fails()) {
+            return response()->json($validatedData->errors(), 400);
+        }
+        return response()->json();
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class ProjectController extends Controller
 {
     private array $validationRules = [
+        'id' => 'sometimes|exists:projects,id',
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'due_date' => 'required|date|after_or_equal:today',
@@ -56,9 +57,35 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function show(Project $project)
+    public function show($id)
     {
+        $project = Project::find($id);
 
+        return view('projects.show', compact('project'));
+    }
+
+    public function edit($id)
+    {
+        $project = Project::find($id);
+        return view('projects.edit', compact('project'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate($this->validationRules);
+
+        $project = Project::find($id);
+        $project->update([
+            'title' => $request->get("title"),
+            'description' => $request->get("description"),
+            'due_date' => $request->get("due_date"),
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $proj = Project::find($id);
+        $proj->delete();
     }
 
     /**
