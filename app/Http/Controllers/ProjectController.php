@@ -81,7 +81,7 @@ class ProjectController extends Controller
             'due_date' => $request->get("due_date"),
         ]);
 
-        redirect()->route('projects.index');
+        return redirect()->route('projects.index');
     }
 
     public function destroy($id)
@@ -89,7 +89,7 @@ class ProjectController extends Controller
         $proj = Project::find($id);
         $proj->delete();
 
-        redirect()->route('projects.index');
+        return redirect()->route('projects.index');
     }
 
     /**

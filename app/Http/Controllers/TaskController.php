@@ -80,12 +80,15 @@ class TaskController extends Controller
             'description' => $request->get("description"),
             'due_date' => $request->get("due_date"),
         ]);
+        return redirect()->route('tasks.index');
     }
 
     public function destroy($id)
     {
         $proj = Task::find($id);
         $proj->delete();
+
+        return redirect()->route('tasks.index');
     }
 
     /**
