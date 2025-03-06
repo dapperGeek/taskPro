@@ -1,7 +1,9 @@
 @extends('layout')
 @section('content')
-    <table>
-        <thead>
+
+    @if(!$tasks->isEmpty())
+        <table>
+            <thead>
             <tr>
                 <th></th>
                 <th>Title</th>
@@ -9,10 +11,10 @@
                 <th>Due Date</th>
                 <th>Action</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
-            <?php $r = 1 ?>
+            <tbody>
+                <?php $r = 1 ?>
             @foreach($tasks as $task)
                 <tr>
                     <td>{{$r}}</td>
@@ -21,9 +23,12 @@
                     <td>{{$task->due_date}}</td>
                     <td><a href="{{ route('tasks.show', ['id' => $task->id]) }}">View</a></td>
                 </tr>
-                <?php $r++ ?>
+                    <?php $r++ ?>
             @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    @else
+        <h3>No tasks found</h3>
+    @endif
 
 @endsection
