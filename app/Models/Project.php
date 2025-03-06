@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
+    protected $fillable = ['title', 'description', 'due_date'];
+
     use HasUuids, SoftDeletes;
     public function tasks(): HasMany
     {
